@@ -7,13 +7,13 @@ const CONFIG = {
   businessName: "NEAR MINI MART",
 
   // PLACEHOLDER — digits only, country code first, no "+" or spaces. e.g. "971501234567"
-  whatsappNumber: "971XXXXXXXXX",
+  whatsappNumber: "971569625552",
 
   currency: "AED",
 
   // PLACEHOLDERS — shown in the Contact section until replaced
   contact: {
-    phoneDisplay: "[Phone number — to be added]",
+    phoneDisplay: "+971 5696255527",
     address: "[Store address — to be added]",
     mapsLink: "" // paste the Google Maps link here; the button appears automatically
   },
