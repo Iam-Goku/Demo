@@ -1,402 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Best Mobile Zone — Mobiles & Electronics, Wholesale & Retail</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEAR MINI MART | Mini Mart &amp; Grocery Delivery in JLT</title>
+<meta name="description" content="NEAR MINI MART offers groceries, fresh essentials, drinks, snacks and household products with fast delivery across selected JLT clusters. Open 24 hours.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NEAR MINI MART | Mini Mart &amp; Grocery Delivery in JLT">
+<meta property="og:description" content="Groceries, drinks, snacks and daily essentials delivered in JLT. Open 24 hours. Order on WhatsApp.">
+<!-- og:image / og:url: add once the real domain and a share image exist -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231f7a3d'/%3E%3Ctext x='50' y='68' font-size='56' font-weight='800' text-anchor='middle' fill='white' font-family='Arial'%3ENM%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+<!-- Tailwind CDN keeps this a zero-build static site. For a smaller CSS file, compile with the Tailwind CLI. -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          ink: '#14171C',
-          paper: '#F3F4F1',
-          panel: '#FFFFFF',
-          line: '#D9DBD2',
-          amber: '#FFB800',
-          signal: '#1A46FF',
-          muted: '#5B6270',
-        },
-        fontFamily: {
-          display: ['"Barlow Condensed"', 'sans-serif'],
-          body: ['Inter', 'sans-serif'],
-          mono: ['"Roboto Mono"', 'monospace'],
-        },
-      }
-    }
-  }
+tailwind.config = { theme: { extend: {
+  colors: { leaf: "#1f7a3d", deep: "#0e3b22", mint: "#eaf6ec", sun: "#f6b21a" },
+  fontFamily: { display: ['"Bricolage Grotesque"', "system-ui", "sans-serif"] } } } };
 </script>
 <style>
-  html { scroll-behavior: smooth; }
-  body { font-family: 'Inter', sans-serif; background-color: #F3F4F1; color: #14171C; }
-  .font-display { font-family: 'Barlow Condensed', sans-serif; }
-  .tag-number::before {
-    content: attr(data-num);
-    font-family: 'Roboto Mono', monospace;
-    font-size: 0.7rem;
-    color: #5B6270;
-  }
-  .stitch {
-    background-image: repeating-linear-gradient(to right, #D9DBD2 0, #D9DBD2 6px, transparent 6px, transparent 14px);
-    height: 1px;
-  }
-  #mobileMenu { transition: max-height 0.25s ease; }
+  html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+  #chips { scrollbar-width: none; } #chips::-webkit-scrollbar { display: none; }
+  .cat-card, #drawer, #cartBar { transition: transform .2s ease; }
+  :focus-visible { outline: 3px solid #f6b21a; outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
 </style>
 </head>
-<body class="antialiased">
+<body class="bg-white font-sans text-slate-800 antialiased">
 
-<!-- NAV -->
-<header class="sticky top-0 z-50 bg-paper/95 backdrop-blur border-b border-line">
-  <div class="max-w-6xl mx-auto px-5 sm:px-8">
-    <div class="flex items-center justify-between h-16">
-      <a href="#top" class="flex items-baseline gap-2">
-        <span class="font-display font-800 text-2xl tracking-tight leading-none">THE BEST<br class="hidden"></span>
-      </a>
-      <a href="#top" class="font-display font-extrabold text-xl leading-none tracking-tight sm:hidden">TBMZ</a>
-      <a href="#top" class="hidden sm:block font-display font-extrabold text-2xl leading-none tracking-tight">
-        The Best <span class="text-signal">Mobile</span> Zone
-      </a>
-      <nav class="hidden md:flex items-center gap-8 font-body text-sm text-ink/80">
-        <a href="#catalog" class="hover:text-signal transition-colors">Catalog</a>
-        <a href="#wholesale" class="hover:text-signal transition-colors">Wholesale pricing</a>
-        <a href="#products" class="hover:text-signal transition-colors">Featured stock</a>
-        <a href="#reviews" class="hover:text-signal transition-colors">Buyers say</a>
-        <a href="#contact" class="hover:text-signal transition-colors">Contact</a>
-      </nav>
-      <a href="#contact" class="hidden md:inline-block bg-ink text-paper text-sm font-medium px-4 py-2 rounded-sm hover:bg-signal transition-colors">Get wholesale pricing</a>
-      <button id="menuBtn" class="md:hidden p-2" aria-label="Open menu" aria-expanded="false">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
-    </div>
-    <div id="mobileMenu" class="md:hidden overflow-hidden max-h-0">
-      <nav class="flex flex-col gap-1 pb-4 font-body text-sm">
-        <a href="#catalog" class="py-2 border-b border-line">Catalog</a>
-        <a href="#wholesale" class="py-2 border-b border-line">Wholesale pricing</a>
-        <a href="#products" class="py-2 border-b border-line">Featured stock</a>
-        <a href="#reviews" class="py-2 border-b border-line">Buyers say</a>
-        <a href="#contact" class="py-2">Contact</a>
-      </nav>
-    </div>
+<header class="sticky top-0 z-30 border-b border-slate-100 bg-white/95 backdrop-blur">
+  <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+    <a href="#home" class="font-display text-xl font-extrabold tracking-tight text-deep">NEAR <span class="text-leaf">MINI MART</span></a>
+    <nav class="hidden gap-6 text-sm font-semibold md:flex" aria-label="Main">
+      <a href="#home">Home</a><a href="#products">Products</a><a href="#about">About</a><a href="#delivery">Delivery</a><a href="#contact">Contact</a>
+    </nav>
+    <a class="wa-link rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-bold text-deep" target="_blank" rel="noopener">Chat on WhatsApp</a>
   </div>
 </header>
 
-<!-- HERO -->
-<section id="top" class="max-w-6xl mx-auto px-5 sm:px-8 pt-14 pb-10 sm:pt-20 sm:pb-16">
-  <div class="grid md:grid-cols-12 gap-10 items-end">
-    <div class="md:col-span-8">
-      <p class="font-mono text-xs text-muted mb-3">Est. mobile & electronics trading — Deira, Dubai</p>
-      <h1 class="font-display font-extrabold text-[13vw] sm:text-6xl md:text-7xl leading-[0.95] tracking-tight">
-        One counter for phones.<br>One warehouse for the rest.
-      </h1>
-      <p class="mt-6 text-lg text-ink/70 max-w-lg font-body">
-        Smartphones, tablets, audio, wearables, chargers and cables — sold one unit at a time over the counter, or by the pallet to shops and distributors across the region.
-      </p>
-      <div class="mt-8 flex flex-wrap gap-3">
-        <a href="#wholesale" class="bg-signal text-white font-medium px-6 py-3 rounded-sm hover:bg-ink transition-colors">See wholesale tiers</a>
-        <a href="#products" class="border border-ink px-6 py-3 rounded-sm font-medium hover:bg-ink hover:text-paper transition-colors">Browse featured stock</a>
-      </div>
+<main>
+<section id="home" class="bg-mint">
+  <div class="mx-auto max-w-6xl px-4 pb-10 pt-10 sm:pt-16">
+    <p class="inline-block rounded-full bg-sun px-3 py-1 text-sm font-bold text-deep" data-cfg="hours">Open 24 Hours</p>
+    <h1 class="mt-4 max-w-3xl font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-deep sm:text-6xl">Your Neighbourhood Mini Mart, Just a WhatsApp Away</h1>
+    <p class="mt-4 max-w-xl text-lg text-slate-700">Fresh groceries, drinks, snacks and daily essentials delivered to your door in JLT.</p>
+    <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+      <a class="wa-link rounded-2xl bg-[#25D366] px-6 py-4 text-center text-lg font-extrabold text-deep" target="_blank" rel="noopener">Order on WhatsApp</a>
+      <a href="#products" class="rounded-2xl border-2 border-deep px-6 py-4 text-center text-lg font-bold text-deep">Browse Products</a>
     </div>
-    <div class="md:col-span-4">
-      <div class="border border-line bg-panel rounded-sm p-5 font-mono text-sm">
-        <div class="flex justify-between py-2 border-b border-line"><span class="text-muted">Brands stocked</span><span class="font-semibold">40+</span></div>
-        <div class="flex justify-between py-2 border-b border-line"><span class="text-muted">SKUs on shelf</span><span class="font-semibold">1,800+</span></div>
-        <div class="flex justify-between py-2 border-b border-line"><span class="text-muted">Min. wholesale order</span><span class="font-semibold">10 units</span></div>
-        <div class="flex justify-between py-2"><span class="text-muted">Dispatch time</span><span class="font-semibold">Same day</span></div>
-      </div>
+    <ul class="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4" aria-label="Service highlights">
+      <li class="rounded-2xl bg-white p-4"><p class="text-2xl" aria-hidden="true">🕐</p><p class="mt-1 font-bold text-deep">24 Hours Open</p></li>
+      <li class="rounded-2xl bg-white p-4"><p class="text-2xl" aria-hidden="true">🛵</p><p class="mt-1 font-bold text-deep">Free Delivery in JLT</p></li>
+      <li class="rounded-2xl bg-white p-4"><p class="text-2xl" aria-hidden="true">💵</p><p class="mt-1 font-bold text-deep">Cash on Delivery</p></li>
+      <li class="rounded-2xl bg-white p-4"><p class="text-2xl" aria-hidden="true">⏱️</p><p class="mt-1 font-bold text-deep">Delivery in <span data-cfg="time">15–30 Minutes</span></p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="mx-auto max-w-6xl px-4 py-10" aria-labelledby="catH">
+  <h2 id="catH" class="font-display text-2xl font-extrabold text-deep sm:text-3xl">Shop by category</h2>
+  <div id="catCards" class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6"></div>
+</section>
+
+<section id="products" class="mx-auto max-w-6xl px-4 pb-12" aria-labelledby="prodH">
+  <h2 id="prodH" class="font-display text-2xl font-extrabold text-deep sm:text-3xl">Products</h2>
+  <label for="search" class="sr-only">Search products</label>
+  <input id="search" type="search" placeholder="Search products..." autocomplete="off" class="mt-4 w-full rounded-2xl border border-slate-300 px-4 py-3.5 text-base">
+  <div id="chips" class="sticky top-16 z-20 -mx-4 mt-3 flex gap-2 overflow-x-auto bg-white px-4 py-2" role="group" aria-label="Filter by category"></div>
+  <div id="grid" class="mt-3 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4"></div>
+  <p id="empty" class="hidden py-10 text-center text-slate-600">No products match your search. Try another word or choose All.</p>
+  <p class="mt-6 text-sm text-slate-500">Prices are in AED.</p>
+</section>
+
+<section id="delivery" class="bg-deep py-12 text-white">
+  <div class="mx-auto max-w-6xl px-4">
+    <h2 class="font-display text-3xl font-extrabold sm:text-4xl">We Deliver Across Selected <span data-cfg="area">JLT</span> Clusters</h2>
+    <ul id="clusters" class="mt-6 flex flex-wrap gap-3"></ul>
+    <p id="clusterText" class="mt-3 text-mint"></p>
+    <div class="mt-8 grid gap-3 sm:grid-cols-4">
+      <div class="rounded-2xl bg-leaf p-4"><p class="font-display text-xl font-extrabold">Free Home Delivery</p><p class="text-sm text-mint">In the clusters above</p></div>
+      <div class="rounded-2xl bg-leaf p-4"><p class="font-display text-xl font-extrabold" data-cfg="time">15–30 Minutes</p><p class="text-sm text-mint">Fast delivery</p></div>
+      <div class="rounded-2xl bg-leaf p-4"><p class="font-display text-xl font-extrabold" data-cfg="pay">Cash on Delivery</p><p class="text-sm text-mint">Payment</p></div>
+      <div class="rounded-2xl bg-leaf p-4"><p class="font-display text-xl font-extrabold" data-cfg="hours">Open 24 Hours</p><p class="text-sm text-mint">Opening hours</p></div>
     </div>
   </div>
 </section>
 
-<div class="stitch max-w-6xl mx-auto"></div>
+<section id="about" class="mx-auto max-w-6xl px-4 py-12">
+  <h2 class="font-display text-3xl font-extrabold text-deep">Everything You Need, Close to Home</h2>
+  <p class="mt-3 max-w-2xl text-lg text-slate-700">NEAR MINI MART provides everyday groceries, fresh essentials, drinks, snacks and household products for customers in JLT.</p>
+  <ul class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+    <li class="rounded-2xl bg-mint p-4 font-semibold text-deep">Open 24/7</li>
+    <li class="rounded-2xl bg-mint p-4 font-semibold text-deep">Fast local delivery</li>
+    <li class="rounded-2xl bg-mint p-4 font-semibold text-deep">Free delivery in selected JLT clusters</li>
+    <li class="rounded-2xl bg-mint p-4 font-semibold text-deep">Cash on delivery</li>
+    <li class="rounded-2xl bg-mint p-4 font-semibold text-deep">Everyday essentials in one place</li>
+  </ul>
+</section>
 
-<!-- CATEGORIES / CATALOG -->
-<section id="catalog" class="max-w-6xl mx-auto px-5 sm:px-8 py-14 sm:py-20">
-  <div class="flex flex-wrap items-baseline justify-between gap-4 mb-8">
-    <h2 class="font-display font-bold text-4xl sm:text-5xl tracking-tight">What's on the shelf</h2>
-    <p class="text-muted text-sm max-w-xs">Six categories, all sold both ways: single-unit retail and bulk wholesale.</p>
-  </div>
-  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-line border border-line">
-    <!-- card -->
-    <div class="bg-panel p-6 flex flex-col justify-between min-h-[190px]">
-      <div class="flex justify-between text-xs font-mono text-muted"><span>CAT.01</span><span>New & refurbished</span></div>
-      <div>
-        <h3 class="font-display font-bold text-2xl mt-6">Smartphones</h3>
-        <p class="text-sm text-ink/70 mt-1">Samsung, Apple, Xiaomi, Infinix, itel — locked and unlocked, factory sealed or graded refurb.</p>
-      </div>
-    </div>
-    <div class="bg-panel p-6 flex flex-col justify-between min-h-[190px]">
-      <div class="flex justify-between text-xs font-mono text-muted"><span>CAT.02</span><span>All sizes</span></div>
-      <div>
-        <h3 class="font-display font-bold text-2xl mt-6">Tablets</h3>
-        <p class="text-sm text-ink/70 mt-1">Budget and premium tablets for classrooms, POS counters and personal use.</p>
-      </div>
-    </div>
-    <div class="bg-panel p-6 flex flex-col justify-between min-h-[190px]">
-      <div class="flex justify-between text-xs font-mono text-muted"><span>CAT.03</span><span>Wired & wireless</span></div>
-      <div>
-        <h3 class="font-display font-bold text-2xl mt-6">Audio & earbuds</h3>
-        <p class="text-sm text-ink/70 mt-1">TWS earbuds, neckbands, Bluetooth speakers, wired headsets — branded and OEM.</p>
-      </div>
-    </div>
-    <div class="bg-panel p-6 flex flex-col justify-between min-h-[190px]">
-      <div class="flex justify-between text-xs font-mono text-muted"><span>CAT.04</span><span>Fitness & notify</span></div>
-      <div>
-        <h3 class="font-display font-bold text-2xl mt-6">Smartwatches</h3>
-        <p class="text-sm text-ink/70 mt-1">Calling smartwatches, fitness bands and kids' GPS watches at retail and case-lot pricing.</p>
-      </div>
-    </div>
-    <div class="bg-panel p-6 flex flex-col justify-between min-h-[190px]">
-      <div class="flex justify-between text-xs font-mono text-muted"><span>CAT.05</span><span>Fast charging</span></div>
-      <div>
-        <h3 class="font-display font-bold text-2xl mt-6">Power & charging</h3>
-        <p class="text-sm text-ink/70 mt-1">Power banks, wall adapters, car chargers and data cables in bulk pack sizes.</p>
-      </div>
-    </div>
-    <div class="bg-panel p-6 flex flex-col justify-between min-h-[190px]">
-      <div class="flex justify-between text-xs font-mono text-muted"><span>CAT.06</span><span>Protect & carry</span></div>
-      <div>
-        <h3 class="font-display font-bold text-2xl mt-6">Cases & accessories</h3>
-        <p class="text-sm text-ink/70 mt-1">Covers, tempered glass, memory cards, SIM tools and till-side impulse items.</p>
+<section id="contact" class="bg-mint py-12">
+  <div class="mx-auto max-w-6xl px-4">
+    <h2 class="font-display text-3xl font-extrabold text-deep">Contact</h2>
+    <div class="mt-5 grid gap-6 md:grid-cols-2">
+      <ul class="space-y-2 text-lg">
+        <li class="font-bold text-deep">NEAR MINI MART</li>
+        <li>WhatsApp ordering · <span data-cfg="phone"></span></li>
+        <li data-cfg="hours">Open 24 Hours</li>
+        <li>Delivery areas: <span data-cfg="area">JLT</span> selected clusters</li>
+        <li>Address: <span data-cfg="address"></span></li>
+      </ul>
+      <div class="flex flex-col gap-3 sm:flex-row md:flex-col md:items-start">
+        <a class="wa-link rounded-2xl bg-[#25D366] px-6 py-4 text-center text-lg font-extrabold text-deep" target="_blank" rel="noopener">Place Your Order</a>
+        <a id="mapsBtn" class="hidden rounded-2xl border-2 border-deep px-6 py-4 text-center font-bold text-deep" target="_blank" rel="noopener">Open in Google Maps</a>
       </div>
     </div>
   </div>
 </section>
+</main>
 
-<!-- WHOLESALE VS RETAIL -->
-<section id="wholesale" class="bg-ink text-paper">
-  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-14 sm:py-20">
-    <h2 class="font-display font-bold text-4xl sm:text-5xl tracking-tight text-paper">Two counters, one warehouse</h2>
-    <p class="text-paper/60 max-w-xl mt-3 text-sm">Walk in for one handset, or place a standing order for your shop. Pricing scales with quantity — no separate account needed to ask for a quote.</p>
-
-    <div class="grid md:grid-cols-2 gap-6 mt-10">
-      <div class="border border-paper/20 rounded-sm p-6">
-        <h3 class="font-display font-semibold text-2xl">Retail counter</h3>
-        <p class="text-sm text-paper/60 mt-2">For individual buyers, gift purchases and one-off replacements.</p>
-        <ul class="mt-5 space-y-3 text-sm">
-          <li class="flex gap-3"><span class="text-amber">+</span> Single units, full manufacturer warranty where applicable</li>
-          <li class="flex gap-3"><span class="text-amber">+</span> In-store demo and SIM setup before you leave</li>
-          <li class="flex gap-3"><span class="text-amber">+</span> Trade-in accepted on select smartphone models</li>
-        </ul>
-      </div>
-      <div class="border border-amber rounded-sm p-6 bg-paper/[0.03]">
-        <h3 class="font-display font-semibold text-2xl">Wholesale accounts</h3>
-        <p class="text-sm text-paper/60 mt-2">For retailers, distributors and corporate buyers ordering in volume.</p>
-        <ul class="mt-5 space-y-3 text-sm">
-          <li class="flex gap-3"><span class="text-amber">+</span> Case-lot and carton pricing, negotiable above 500 units</li>
-          <li class="flex gap-3"><span class="text-amber">+</span> Export documentation and packing lists prepared on request</li>
-          <li class="flex gap-3"><span class="text-amber">+</span> Dedicated account handler once your first order clears</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="mt-10 overflow-x-auto">
-      <table class="w-full text-sm min-w-[480px]">
-        <thead>
-          <tr class="text-left text-paper/50 font-mono text-xs border-b border-paper/20">
-            <th class="py-3 font-normal">Order quantity</th>
-            <th class="py-3 font-normal">Price break</th>
-            <th class="py-3 font-normal">Typical buyer</th>
-            <th class="py-3 font-normal">Lead time</th>
-          </tr>
-        </thead>
-        <tbody class="font-body">
-          <tr class="border-b border-paper/10">
-            <td class="py-4">1 – 9 units</td>
-            <td class="py-4">List price</td>
-            <td class="py-4 text-paper/60">Individual customers</td>
-            <td class="py-4 text-paper/60">Same day</td>
-          </tr>
-          <tr class="border-b border-paper/10">
-            <td class="py-4">10 – 49 units</td>
-            <td class="py-4">Up to 8% off list</td>
-            <td class="py-4 text-paper/60">Small retailers, kiosks</td>
-            <td class="py-4 text-paper/60">1 – 2 days</td>
-          </tr>
-          <tr class="border-b border-paper/10">
-            <td class="py-4">50 – 199 units</td>
-            <td class="py-4">Up to 15% off list</td>
-            <td class="py-4 text-paper/60">Chain stores</td>
-            <td class="py-4 text-paper/60">2 – 4 days</td>
-          </tr>
-          <tr>
-            <td class="py-4">200+ units</td>
-            <td class="py-4">Quoted per order</td>
-            <td class="py-4 text-paper/60">Distributors, exporters</td>
-            <td class="py-4 text-paper/60">By arrangement</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURED PRODUCTS -->
-<section id="products" class="max-w-6xl mx-auto px-5 sm:px-8 py-14 sm:py-20">
-  <div class="flex flex-wrap items-baseline justify-between gap-4 mb-8">
-    <h2 class="font-display font-bold text-4xl sm:text-5xl tracking-tight">This week's stock highlights</h2>
-    <p class="text-muted text-sm">Availability changes daily — call ahead to reserve wholesale quantities.</p>
-  </div>
-  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-    <div class="border border-line bg-panel rounded-sm overflow-hidden">
-      <div class="h-32 bg-paper border-b border-line flex items-center justify-center">
-        <svg width="40" height="60" viewBox="0 0 40 60" fill="none"><rect x="2" y="2" width="36" height="56" rx="6" stroke="#14171C" stroke-width="2"/><line x1="14" y1="8" x2="26" y2="8" stroke="#14171C" stroke-width="2"/></svg>
-      </div>
-      <div class="p-4">
-        <p class="font-mono text-xs text-muted">SKU 20431</p>
-        <h3 class="font-display font-semibold text-xl mt-1">Galaxy A-series 128GB</h3>
-        <p class="text-xs text-ink/60 mt-1">MOQ 10 · Dual SIM · 12 colours mixed</p>
-      </div>
-    </div>
-    <div class="border border-line bg-panel rounded-sm overflow-hidden">
-      <div class="h-32 bg-paper border-b border-line flex items-center justify-center">
-        <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><circle cx="9" cy="15" r="6" stroke="#14171C" stroke-width="2"/><circle cx="21" cy="15" r="6" stroke="#14171C" stroke-width="2"/></svg>
-      </div>
-      <div class="p-4">
-        <p class="font-mono text-xs text-muted">SKU 20488</p>
-        <h3 class="font-display font-semibold text-xl mt-1">TWS earbuds, ENC mic</h3>
-        <p class="text-xs text-ink/60 mt-1">MOQ 20 · Bulk carton of 50</p>
-      </div>
-    </div>
-    <div class="border border-line bg-panel rounded-sm overflow-hidden">
-      <div class="h-32 bg-paper border-b border-line flex items-center justify-center">
-        <svg width="46" height="46" viewBox="0 0 46 46" fill="none"><rect x="4" y="14" width="38" height="18" rx="3" stroke="#14171C" stroke-width="2"/><rect x="42" y="19" width="3" height="8" fill="#14171C"/></svg>
-      </div>
-      <div class="p-4">
-        <p class="font-mono text-xs text-muted">SKU 20502</p>
-        <h3 class="font-display font-semibold text-xl mt-1">20,000mAh power bank</h3>
-        <p class="text-xs text-ink/60 mt-1">MOQ 24 · 22.5W fast output</p>
-      </div>
-    </div>
-    <div class="border border-line bg-panel rounded-sm overflow-hidden">
-      <div class="h-32 bg-paper border-b border-line flex items-center justify-center">
-        <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><rect x="6" y="4" width="22" height="22" rx="11" stroke="#14171C" stroke-width="2"/><rect x="13" y="26" width="8" height="4" fill="#14171C"/></svg>
-      </div>
-      <div class="p-4">
-        <p class="font-mono text-xs text-muted">SKU 20519</p>
-        <h3 class="font-display font-semibold text-xl mt-1">Calling smartwatch</h3>
-        <p class="text-xs text-ink/60 mt-1">MOQ 15 · 4 strap colours</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="stitch max-w-6xl mx-auto"></div>
-
-<!-- WHY -->
-<section class="max-w-6xl mx-auto px-5 sm:px-8 py-14 sm:py-20">
-  <div class="grid md:grid-cols-12 gap-10">
-    <div class="md:col-span-4">
-      <h2 class="font-display font-bold text-4xl tracking-tight">Why shops keep ordering from us</h2>
-    </div>
-    <div class="md:col-span-8 grid sm:grid-cols-2 gap-x-8 gap-y-6">
-      <div>
-        <h3 class="font-semibold">Stock you can actually see</h3>
-        <p class="text-sm text-ink/70 mt-1">Every model on our floor is available to inspect before it ships — no ordering off a catalog photo.</p>
-      </div>
-      <div>
-        <h3 class="font-semibold">Mixed pallets welcome</h3>
-        <p class="text-sm text-ink/70 mt-1">Combine phones, accessories and audio in one wholesale order to hit your price break.</p>
-      </div>
-      <div>
-        <h3 class="font-semibold">Grading you can trust</h3>
-        <p class="text-sm text-ink/70 mt-1">Refurbished stock is graded A/B/C and priced accordingly — no surprises at unboxing.</p>
-      </div>
-      <div>
-        <h3 class="font-semibold">Fast reorders</h3>
-        <p class="text-sm text-ink/70 mt-1">Repeat wholesale buyers get a standing order list — reorder by phone or WhatsApp in minutes.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- REVIEWS -->
-<section id="reviews" class="bg-panel border-y border-line">
-  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-14 sm:py-20">
-    <h2 class="font-display font-bold text-4xl sm:text-5xl tracking-tight mb-10">What buyers say</h2>
-    <div class="grid md:grid-cols-3 gap-6">
-      <div class="border-l-2 border-amber pl-5">
-        <p class="text-sm text-ink/80">"We restock earbuds and cables from them every two weeks. Pricing holds steady and the carton counts are always right."</p>
-        <p class="font-mono text-xs text-muted mt-4">Retailer, mobile accessories kiosk</p>
-      </div>
-      <div class="border-l-2 border-amber pl-5">
-        <p class="text-sm text-ink/80">"Bought a single replacement phone over the counter and they set up the SIM and transferred my contacts on the spot."</p>
-        <p class="font-mono text-xs text-muted mt-4">Retail customer</p>
-      </div>
-      <div class="border-l-2 border-amber pl-5">
-        <p class="text-sm text-ink/80">"Their grading on refurbished stock matches what arrives. That consistency is why we haven't switched suppliers."</p>
-        <p class="font-mono text-xs text-muted mt-4">Distributor, GCC region</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
-  <div class="border border-line rounded-sm p-8 sm:p-12 grid md:grid-cols-2 gap-8 items-center">
-    <div>
-      <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight">Ready to place an order?</h2>
-      <p class="text-sm text-ink/70 mt-2">Tell us what you're stocking and how many units — we'll send pricing within one business day.</p>
-    </div>
-    <form class="grid sm:grid-cols-2 gap-3" onsubmit="return false;">
-      <input type="text" placeholder="Your name" class="border border-line rounded-sm px-4 py-2.5 text-sm bg-paper sm:col-span-1 col-span-2 focus:outline-none focus:ring-2 focus:ring-signal">
-      <input type="text" placeholder="Shop / company" class="border border-line rounded-sm px-4 py-2.5 text-sm bg-paper sm:col-span-1 col-span-2 focus:outline-none focus:ring-2 focus:ring-signal">
-      <input type="email" placeholder="Email or WhatsApp number" class="border border-line rounded-sm px-4 py-2.5 text-sm bg-paper col-span-2 focus:outline-none focus:ring-2 focus:ring-signal">
-      <textarea placeholder="What are you looking for, and roughly how many units?" rows="3" class="border border-line rounded-sm px-4 py-2.5 text-sm bg-paper col-span-2 focus:outline-none focus:ring-2 focus:ring-signal"></textarea>
-      <button class="col-span-2 bg-signal text-white font-medium py-3 rounded-sm hover:bg-ink transition-colors">Request a quote</button>
-    </form>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer id="contact" class="bg-ink text-paper">
-  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-14">
-    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-8 text-sm">
-      <div>
-        <h3 class="font-display font-extrabold text-2xl">The Best Mobile Zone</h3>
-        <p class="text-paper/60 mt-3">Mobiles and small electronics, wholesale and retail, under one roof.</p>
-      </div>
-      <div>
-        <h4 class="font-semibold mb-3">Visit the counter</h4>
-        <p class="text-paper/60">Shop 14, Al Ain Centre<br>Deira, Dubai, UAE</p>
-        <p class="text-paper/60 mt-2">Sat – Thu, 9am – 10pm</p>
-      </div>
-      <div>
-        <h4 class="font-semibold mb-3">Talk to us</h4>
-        <p class="text-paper/60">+971 4 000 0000</p>
-        <p class="text-paper/60">wholesale@thebestmobilezone.ae</p>
-      </div>
-      <div>
-        <h4 class="font-semibold mb-3">Browse</h4>
-        <ul class="space-y-1.5 text-paper/60">
-          <li><a href="#catalog" class="hover:text-amber">Catalog</a></li>
-          <li><a href="#wholesale" class="hover:text-amber">Wholesale pricing</a></li>
-          <li><a href="#products" class="hover:text-amber">Featured stock</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="border-t border-paper/15 mt-10 pt-6 flex flex-wrap justify-between gap-3 text-xs text-paper/40">
-      <p>© 2026 The Best Mobile Zone. All rights reserved.</p>
-      <p>Prices exclude VAT unless stated. Wholesale terms subject to account approval.</p>
-    </div>
+<footer class="bg-deep pb-28 pt-10 text-mint">
+  <div class="mx-auto max-w-6xl px-4">
+    <p class="font-display text-2xl font-extrabold text-white">NEAR MINI MART</p>
+    <p class="mt-1">Fresh groceries, daily essentials and fast delivery in JLT.</p>
+    <nav class="mt-4 flex flex-wrap gap-x-5 gap-y-2 font-semibold text-white" aria-label="Footer">
+      <a href="#home">Home</a><a href="#products">Products</a><a href="#about">About</a><a href="#delivery">Delivery</a><a href="#contact">Contact</a>
+      <a class="wa-link text-[#25D366]" target="_blank" rel="noopener">Order on WhatsApp</a>
+    </nav>
   </div>
 </footer>
 
-<script>
-  const btn = document.getElementById('menuBtn');
-  const menu = document.getElementById('mobileMenu');
-  btn.addEventListener('click', () => {
-    const open = menu.style.maxHeight && menu.style.maxHeight !== '0px';
-    menu.style.maxHeight = open ? '0px' : menu.scrollHeight + 'px';
-    btn.setAttribute('aria-expanded', String(!open));
-  });
-  document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => {
-    menu.style.maxHeight = '0px';
-  }));
-</script>
+<!-- Floating WhatsApp button -->
+<a id="fab" class="wa-link fixed bottom-5 right-4 z-30 flex h-14 items-center rounded-full bg-[#25D366] px-5 font-extrabold text-deep shadow-lg" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">Chat on WhatsApp</a>
 
+<!-- Sticky cart bar -->
+<button id="cartBar" class="fixed inset-x-0 bottom-0 z-40 translate-y-full bg-deep px-4 py-4 pb-[max(1rem,env(safe-area-inset-bottom))] text-center text-lg font-extrabold text-white">
+  <span id="cartBarText">Cart</span>
+</button>
+
+<!-- Cart + checkout drawer -->
+<div id="overlay" class="fixed inset-0 z-50 hidden bg-black/50"></div>
+<aside id="drawer" class="fixed inset-y-0 right-0 z-50 flex w-full max-w-md translate-x-full flex-col bg-white" role="dialog" aria-label="Your cart">
+  <div class="flex items-center justify-between border-b p-4">
+    <h2 class="font-display text-2xl font-extrabold text-deep">Your Cart</h2>
+    <button id="closeCart" class="h-11 w-11 rounded-full bg-slate-100 text-lg" aria-label="Close cart">✕</button>
+  </div>
+  <div class="flex-1 overflow-y-auto p-4">
+    <p id="cartEmpty" class="py-10 text-center text-slate-600">Your cart is empty. Add products to start your order.</p>
+    <ul id="cartItems" class="divide-y"></ul>
+    <div id="checkoutBox" class="hidden">
+      <div class="mt-4 rounded-2xl bg-mint p-4">
+        <p class="flex justify-between"><span>Total quantity</span><b id="totalQty">0</b></p>
+        <p class="flex justify-between text-lg"><span>Subtotal</span><b id="subtotal" class="text-deep"></b></p>
+        <p class="mt-1 text-sm text-slate-600">Delivery: Free in selected JLT clusters · Payment: Cash on Delivery</p>
+      </div>
+      <form id="orderForm" class="mt-5 space-y-3" novalidate>
+        <h3 class="font-display text-xl font-extrabold text-deep">Delivery details</h3>
+        <label class="block text-sm font-semibold">Name<input name="name" required autocomplete="name" class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-3 text-base font-normal"></label>
+        <label class="block text-sm font-semibold">Mobile number<input id="phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel" placeholder="05XXXXXXXX" class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-3 text-base font-normal"></label>
+        <p id="phoneErr" class="hidden text-sm font-semibold text-red-600">Enter a valid mobile number.</p>
+        <label class="block text-sm font-semibold">Delivery location<input name="location" required placeholder="e.g. JLT Cluster V" class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-3 text-base font-normal"></label>
+        <label class="block text-sm font-semibold">Building / Tower<input name="building" required class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-3 text-base font-normal"></label>
+        <label class="block text-sm font-semibold">Apartment / Villa<input name="unit" required class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-3 text-base font-normal"></label>
+        <label class="block text-sm font-semibold">Delivery notes (optional)<textarea name="notes" rows="2" class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-3 text-base font-normal"></textarea></label>
+        <p id="waNotice" class="hidden rounded-xl bg-sun/20 p-3 text-sm">WhatsApp number not set yet (see config.js). WhatsApp opened without a recipient so you can test the message.</p>
+        <button type="submit" class="w-full rounded-2xl bg-[#25D366] py-4 text-lg font-extrabold text-deep">Order via WhatsApp</button>
+        <p class="pb-4 text-center text-xs text-slate-500">Your details are only used to write the WhatsApp message. Nothing is stored.</p>
+      </form>
+    </div>
+  </div>
+</aside>
+
+<script src="config.js"></script>
+<script src="products.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
